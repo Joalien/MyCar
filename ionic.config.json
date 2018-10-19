@@ -1,0 +1,7 @@
+{
+  "name": "ComparateurVoiture",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}
