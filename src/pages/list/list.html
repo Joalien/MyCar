@@ -8,16 +8,20 @@
 </ion-header>
 
 <ion-content>
+
+  <button ion-button type="button" (click)="sort()">Trier par prix {{descending ? 'décroissant' : 'croisant'}}</button>
+
   <ion-list>
-    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
-      <ion-icon [name]="item.icon" item-start></ion-icon>
-      {{item.title}}
-      <div class="item-note" item-end>
-        {{item.note}}
+    <button ion-item *ngFor="let voiture of voitures$ | sort: {property: 'prix', order:order}" (click)="itemTapped($event, voiture)">
+      {{voiture.marque}}
+      <div class="voiture-note" voiture-end>
+        {{voiture.couleur}}
       </div>
+      {{voiture.prix | currency:"EUR"}}
     </button>
   </ion-list>
+
   <div *ngIf="selectedItem" padding>
-    You navigated here from <b>{{selectedItem.title}}</b>
+    Vous avez sélectionné une  <b>{{selectedItem.marque}} {{selectedItem.couleur}} à {{selectedItem.prix | currency:"EUR"}}</b>
   </div>
 </ion-content>

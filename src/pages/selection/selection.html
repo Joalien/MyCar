@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Sélection</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <form #f="ngForm" (ngSubmit)="submit()">
+    <ion-list no-lines>
+
+      <ion-item>
+        <ion-label>Couleur</ion-label>
+        <ion-select [(ngModel)]="voitures.chosen_couleurs" multiple="true" name="chosen_couleurs">
+          <ion-option *ngFor="let c of couleurs">{{c}}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Categories</ion-label>
+        <ion-select [(ngModel)]="voitures.chosen_categories" multiple="true" name="chosen_categories">
+          <ion-option *ngFor="let c of categories">{{c}}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Nombre de portes</ion-label>
+        <ion-select [(ngModel)]="voitures.chosen_portes" multiple="true" name="chosen_portes">
+          <ion-option *ngFor="let p of portes">{{p}} portes</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Nombre de places</ion-label>
+        <ion-select [(ngModel)]="voitures.chosen_places" multiple="true" name="chosen_places">
+          <ion-option *ngFor="let p of places">{{p == 6 ? p + ' ou plus' : p}}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Type de carburant</ion-label>
+        <ion-select [(ngModel)]="voitures.chosen_carburants" multiple="true" name="chosen_carburants">
+          <ion-option *ngFor="let c of carburants">{{c}}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Boites</ion-label>
+        <ion-select [(ngModel)]="voitures.chosen_boites" multiple="true" name="chosen_boites">
+          <ion-option *ngFor="let b of boites">{{b}}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-searchbar [(ngModel)]="voitures.chosen_marques" [showCancelButton]="true" name="chosen_marques" placeholder="Quelle marque recherchez-vous ?"></ion-searchbar>
+      </ion-item>
+
+      <ion-item>
+        <ion-range [dualKnobs]="true" [(ngModel)]="prix" name="prix" min="1000" max="30000" step="1000" snaps="true"></ion-range>
+        <ion-label>Fourchette : {{prix.lower | currency:"EUR"}} - {{prix.upper | currency:"EUR"}}</ion-label>
+      </ion-item>
+
+      <ion-item>
+        <button type="submit" ion-button>Rechercher</button>
+      </ion-item>
+    </ion-list>
+  </form>
+</ion-content>
