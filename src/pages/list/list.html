@@ -10,17 +10,18 @@
 <ion-content>
 
   <button ion-button type="button" (click)="sort()">Trier par prix {{descending ? 'décroissant' : 'croisant'}}</button>
-
-  <ion-list>
-    <button ion-item *ngFor="let voiture of voitures$ | sort: {property: 'prix', order:order}" (click)="itemTapped($event, voiture)">
-      {{voiture.marque}}
-      <div class="voiture-note" voiture-end>
-        {{voiture.couleur}}
-      </div>
-      {{voiture.prix | currency:"EUR"}}
-    </button>
-  </ion-list>
-
+  <ion-grid>
+    <ion-row>
+      <ion-col *ngFor="let attribute of cars$[0] | keyvalue">
+        {{attribute.key}}
+      </ion-col>
+    </ion-row>
+    <ion-row *ngFor="let car of cars$ | sort: {property: 'prix', order:order}" (click)="printDescription($event, car)">
+      <ion-col *ngFor="let attribute of car | keyvalue">
+        {{attribute.value}}
+      </ion-col>
+    </ion-row>
+  </ion-grid>
   <div *ngIf="selectedItem" padding>
     Vous avez sélectionné une  <b>{{selectedItem.marque}} {{selectedItem.couleur}} à {{selectedItem.prix | currency:"EUR"}}</b>
   </div>

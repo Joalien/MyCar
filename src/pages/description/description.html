@@ -1,0 +1,14 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>List</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-label>Vous avez sélectionné une {{car.marque}} {{car.couleur}} à {{car.prix | currency:"EUR"}}</ion-label>
+
+  <button ion-button icon-only (click)="dismiss()">Retour à la liste</button>
+</ion-content>

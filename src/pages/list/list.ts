@@ -1,32 +1,36 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
-import {Observable} from "rxjs";
+import {Component, Injectable} from '@angular/core';
+import { ModalController, NavController, NavParams } from 'ionic-angular';
+import {DescriptionPage} from "../description/description";
+import {Car} from "../../components/car/car";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'page-list',
   templateUrl: 'list.html'
 })
 
+@Injectable()
 export class ListPage{
+
+  urlBackEnd: string = "http://127.0.0.1:8001/v2/voiture";
   descending: boolean = true;
 
   order: number;
   selectedItem: any;
-  voitures$: Array<{marque: string, prix: number, couleur: string}>;
+  cars$: Array<Car> = [];
+  carTable: Array<Array<any>>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, public http: HttpClient) {
     // If we navigated to this page, we will have an item available as a nav param
-    this.voitures$ = [];
+    // this.cars$ = navParams.get("cars");
 
-    // Observable<voiture[]> voitures$ = this.http.get('mon-back-end').map((res:Response) => res.json() as Voiture[]).catch(this.handleError);
-
+    this.http.get<Array<Car>>(this.urlBackEnd, {responseType : 'json', }).subscribe((data: Array<Car>) => this.cars$=data);
   }
 
-  itemTapped(event, voiture) {
+  printDescription(event, car) {
     // That's right, we're pushing to ourselves!
-    this.navCtrl.push(ListPage, {
-      voiture: voiture
-    });
+    let descriptionModal = this.modalCtrl.create(DescriptionPage, {car:car});
+    return descriptionModal.present();
   }
 
   sort(){

@@ -13,6 +13,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { SearchPipe } from '../pipes/search/search';
 import { SortPipe } from '../pipes/sort/sort';
 import {FourchettePipe} from "../pipes/search/fourchette";
+import {DescriptionPage} from "../pages/description/description";
+import {Car} from "../components/car/car";
+import {HttpClientModule} from "@angular/common/http";
 
 
 
@@ -22,20 +25,24 @@ import {FourchettePipe} from "../pipes/search/fourchette";
     HomePage,
     ListPage,
     SelectionPage,
+    DescriptionPage,
+    Car,
     SearchPipe,
     SortPipe,
     FourchettePipe
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     HomePage,
     ListPage,
-    SelectionPage
+    SelectionPage,
+    DescriptionPage
   ],
   providers: [
     StatusBar,
