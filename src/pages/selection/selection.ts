@@ -50,7 +50,7 @@ export class SelectionPage{
     this.http.post<any>(this.global.urlBackEnd+"numberofrequirement", this.requirement, this.global.httpOptions).subscribe((data: any) => {
 
       for(let d in Object.keys(data)) {
-        this. = Object.keys(data['categorie'])
+        //this. = Object.keys(data['categorie'])
       }
     });
     console.log(this.numberOfCarsRemaining);
