@@ -14,10 +14,10 @@ export class SortPipe implements PipeTransform {
    */
   transform(array: Array<string>, args?: any): Array<string> {
     return array.sort(function(a, b){
-      if(a[args.property] < b[args.property]){
+      if(a[args.property] < b[args.property] || b[args.property] == null){
         return -1 * args.order;
       }
-      else if( a[args.property] > b[args.property]){
+      else if( a[args.property] > b[args.property] || a[args.property] == null){
         return 1 * args.order;
       }
       else{

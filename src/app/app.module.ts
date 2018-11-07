@@ -16,6 +16,7 @@ import {FourchettePipe} from "../pipes/search/fourchette";
 import {DescriptionPage} from "../pages/description/description";
 import {Car} from "../components/car/car";
 import {HttpClientModule} from "@angular/common/http";
+import {Globals} from "./global";
 
 
 
@@ -47,6 +48,7 @@ import {HttpClientModule} from "@angular/common/http";
   providers: [
     StatusBar,
     SplashScreen,
+    Globals,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

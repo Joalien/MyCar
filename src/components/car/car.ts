@@ -14,8 +14,8 @@ export class Car {
 
   id: number;
   categorie: string;
-  porte: string;
-  place: string;
+  portes: string;
+  places: string;
   boite: string;
   carburant: string;
 
@@ -23,7 +23,7 @@ export class Car {
   origine: string;
   anciennete: string;
   consommation: string;
-  rejetCO2: string;
+  co2: string;
 
   pays: string;
   zone: string;

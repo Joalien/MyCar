@@ -3,6 +3,7 @@ import { ModalController, NavController, NavParams } from 'ionic-angular';
 import {DescriptionPage} from "../description/description";
 import {Car} from "../../components/car/car";
 import {HttpClient} from "@angular/common/http";
+import {Globals} from "../../app/global";
 
 @Component({
   selector: 'page-list',
@@ -12,19 +13,18 @@ import {HttpClient} from "@angular/common/http";
 @Injectable()
 export class ListPage{
 
-  urlBackEnd: string = "http://127.0.0.1:8001/v2/voiture";
   descending: boolean = true;
+  property: string = 'prix';
 
   order: number;
   selectedItem: any;
   cars$: Array<Car> = [];
-  carTable: Array<Array<any>>;
 
-  constructor(public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, public http: HttpClient) {
+  constructor(public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, public http: HttpClient, public global:Globals) {
     // If we navigated to this page, we will have an item available as a nav param
-    // this.cars$ = navParams.get("cars");
+    this.http.post(this.global.urlBackEnd+"cars", navParams.get("requirement"), this.global.httpOptions).subscribe(
+      (data:Array<Car>) => this.cars$=data);
 
-    this.http.get<Array<Car>>(this.urlBackEnd, {responseType : 'json', }).subscribe((data: Array<Car>) => this.cars$=data);
   }
 
   printDescription(event, car) {
@@ -33,8 +33,9 @@ export class ListPage{
     return descriptionModal.present();
   }
 
-  sort(){
-    this.descending = !this.descending;
+  sort(property){
+    this.descending = this.property != property ? true : !this.descending;
+    this.property = property;
     this.order = this.descending ? 1 : -1;
   }
 

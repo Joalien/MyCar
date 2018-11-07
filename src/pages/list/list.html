@@ -9,14 +9,13 @@
 
 <ion-content>
 
-  <button ion-button type="button" (click)="sort()">Trier par prix {{descending ? 'décroissant' : 'croisant'}}</button>
   <ion-grid>
     <ion-row>
-      <ion-col *ngFor="let attribute of cars$[0] | keyvalue">
+      <ion-col *ngFor="let attribute of cars$[0] | keyvalue" (click)="sort(attribute.key)">
         {{attribute.key}}
       </ion-col>
     </ion-row>
-    <ion-row *ngFor="let car of cars$ | sort: {property: 'prix', order:order}" (click)="printDescription($event, car)">
+    <ion-row *ngFor="let car of cars$ | sort: {property: property, order:order}" (click)="printDescription($event, car)">
       <ion-col *ngFor="let attribute of car | keyvalue">
         {{attribute.value}}
       </ion-col>
