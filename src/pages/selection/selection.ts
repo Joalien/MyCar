@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import {ListPage} from "../list/list";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {Globals} from "../../app/global";
 
 
@@ -18,18 +18,19 @@ export class SelectionPage{
 
   requirement: Requirement;
 
-  categories : string[] = ["Citadine", "Berline", "4X4 / SUV", "Monospace", "Break", "Coupé / Cabriolet"];
-  portes: string[] = ["2/3 portes", "4/5 portes"];
-  places: number[] = [2, 3, 4, 5, 6];
-  boites: string[] = ["Manuelle", "Électrique"];
-  carburants: string[] = ["Essence", "Diesel", "Electrique"];
 
-  origines:string[] = ["France", "Allemagne", "Japon"];
-  anciennetes:number[] = [0, 1, 2, 3, 4];// années
-  consommations:number[] = [0, 1, 2, 3, 4];// L/100km
-  co2s:number[] = [10, 20, 30, 40, 50];// g/L
+  remainingCars: Array<Map<string, number>>;
 
-  numberOfCarsRemaining : any = {};
+  // categories : Map<string, number>[] = [];
+  // portes: Map<string, number>[] = [];
+  // places: Map<string, number>[] = [];
+  // boites: Map<string, number>[] = [];
+  // carburants: Map<string, number>[] = [];
+  //
+  // origines: Map<string, number>[] = [];
+  // anciennetes: Map<string, number>[] = [];// années
+  // consommations: Map<string, number>[] = [];// L/100km
+  // co2s: Map<string, number>[] = [];// g/L
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public http: HttpClient, public global:Globals) {
@@ -41,19 +42,17 @@ export class SelectionPage{
 
   submit(){
     this.updatePrix(this.requirement);
-    this.navCtrl.push(ListPage, {criteres:this.requirement});
+    this.navCtrl.push(ListPage, {requirement:this.requirement});
   }
 
   onChange(){
     this.updatePrix(this.requirement);
     this.http.post<number>(this.global.urlBackEnd+"numberofcars", this.requirement, this.global.httpOptions).subscribe((data: number) => this.numberOfResults = data);
-    this.http.post<any>(this.global.urlBackEnd+"numberofrequirement", this.requirement, this.global.httpOptions).subscribe((data: any) => {
-
-      for(let d in Object.keys(data)) {
-        //this. = Object.keys(data['categorie'])
-      }
+    this.http.post(this.global.urlBackEnd+"numberofrequirement", this.requirement, this.global.httpOptions).subscribe((data: any) => {
+      this.remainingCars = data;
+      console.log(this.remainingCars);
     });
-    console.log(this.numberOfCarsRemaining);
+    console.log(this.requirement);
   }
 
   updatePrix(c:Requirement){
