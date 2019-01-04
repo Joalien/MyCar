@@ -4,7 +4,7 @@ version: '2'
 
 services:
   back_end:
-    build: MyCarBackEnd
+    build: MyCarBackEnd/
     image: my_car_back_end
     ports: 
       - "8001:8001"

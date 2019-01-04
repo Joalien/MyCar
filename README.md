@@ -18,3 +18,13 @@ You can view the api documentation in swagger-ui by pointing to
 http://localhost:8080/  
 
 Change default port value in application.properties
+
+## Tips
+
+Rebuild DB in case of compatibility issues:
+
+$ mysql -u root  --force < /var/lib/mysql.bak/data-for-downgrade.sql 
+MariaDB [(none)]> create user 'josquin'@'%' identified by '@SQLpassword123';
+MariaDB [(none)]> grant all privileges on mycar.* to 'josquin'@'%';
+MariaDB [(none)]> flush privileges;
+
