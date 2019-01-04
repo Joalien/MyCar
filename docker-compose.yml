@@ -1,0 +1,37 @@
+version: '2'
+#volumes:
+#mysql-data:
+
+services:
+  back_end:
+    build: MyCarBackEnd
+    image: my_car_back_end
+    ports: 
+      - "8001:8001"
+    links:
+      - db:mariadb
+    volumes:
+      - ./MyCarBackEnd:/usr/local/tomcat/MyCarBackEnd
+
+  front_end:
+    build: MyCarFrontEnd/docker
+    image: my_car_front_end
+    links:
+      - back_end:my_car_back_end
+    ports:
+      - "8100:8100"
+    volumes:
+      - ./MyCarFrontEnd:/usr/local/tomcat/MyCarFrontEnd
+
+  db:
+    build: DB/
+    image: my_car_db
+    environment:
+      - MYSQL_ROOT_PASSWORD=@SQLpassword123
+      - MYSQL_DATABASE=mycar
+      - MYSQL_USER=josquin
+      - MYSQL_PASSWORD=@SQLpassword123
+    volumes:
+      - /var/lib/mysql:/var/lib/mysql
+    ports:
+      - "3306:3306"
