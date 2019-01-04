@@ -1,0 +1,48 @@
+---
+- name: Installation of MyCar packages on raspberry pi
+  package: name={{ item }}  state=installed
+  with_items:
+  - docker-compose
+  - iputils-ping
+  - vim
+  - w3m
+  - lynx
+  - wget
+  - mariadb-server
+  - mariadb-client
+  - apt-transport-https
+
+- name: Ensure docker is uninstalled
+  package: name=docker.io state=removed
+
+- name: Stoping deamons
+  service: 
+    name: mysql
+    state: stopped
+    enabled: no
+
+- name: Add user josquin to docker group
+  user: 
+    name: josquin
+    groups: docker
+    append: yes
+
+- name: Installing Docker from docker (latest version) 1/x
+  command: /bin/bash -c "wget -q https://packagecloud.io/gpg.key -O - | apt-key add -"
+
+
+- name: Installing Docker from docker (latest version) 1/x
+  command: /bin/bash -c "echo 'deb https://packagecloud.io/Hypriot/Schatzkiste/debian/ wheezy main' | sudo tee /etc/apt/sources.list.d/hypriot.list"
+
+- name: Installing Docker from docker (latest version) 1/x
+  apt: 
+    name: docker-hypriot
+    update_cache: yes
+
+- name: Starting deamons
+  service: 
+    name: docker
+    state: started
+    enabled: yes
+
+

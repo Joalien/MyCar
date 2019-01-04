@@ -1,0 +1,9 @@
+---
+- hosts: webserver
+  vars:
+    jenkins_hostname: 192.168.8.146
+  roles:
+    - role: geerlingguy.java
+      become: yes
+    - role: geerlingguy.jenkins
+      become: yes
