@@ -14,7 +14,7 @@ services:
       - ./MyCarBackEnd:/usr/local/tomcat/MyCarBackEnd
 
   front_end:
-    build: MyCarFrontEnd/docker
+    build: MyCarFrontEnd/
     image: my_car_front_end
     links:
       - back_end:my_car_back_end

@@ -27,16 +27,6 @@ public class CarApiController implements CarApi {
 
     private static final Logger log = LoggerFactory.getLogger(CarApiController.class);
 
-    private final ObjectMapper objectMapper;
-
-    private final HttpServletRequest request;
-
-    @Autowired
-    public CarApiController(ObjectMapper objectMapper, HttpServletRequest request) {
-        this.objectMapper = objectMapper;
-        this.request = request;
-    }
-
     @Override
     public ResponseEntity<List<Car>> getCars(HttpServletRequest request, HttpServletResponse response, HttpEntity<String> httpEntity) {
         String accept = request.getHeader("Accept");
